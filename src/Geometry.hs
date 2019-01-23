@@ -7,12 +7,13 @@ module Geometry where
                         , z :: Float 
                         } deriving (Show, Eq, Ord)
 
-    data Circle = Circle { r :: Float
-                         , p :: Point
-                         , c :: PixelRGB8
+    data Circle = Circle { cr :: Float
+                         , cp :: Point
+                         , cc :: PixelRGB8
                          } deriving Show
-                 
-    type World = [Circle]
+  
+    data Light = Light { lp :: Point, li :: Float }
+    data World = World { wo :: [Circle], wl :: [Light] }
 
     padd  :: Point -> Point -> Point
     (Point i j k) `padd` (Point l m n) = Point (i+l) (j+m) (k+n)  
@@ -31,11 +32,12 @@ module Geometry where
         where l = sqrt ( x ** 2 + y ** 2 + z ** 2)
 
     world :: World
-    world = [
-        Circle {r = 5, p = Point { x = -1, y = -1, z = -10 }, c = PixelRGB8 128 20 20}
-        , Circle {r = 7, p = Point { x = 5, y = 5, z = -17 }, c = PixelRGB8 20 128 20}
-        , Circle {r = 3, p = Point { x = -5, y = 3, z = -9 }, c = PixelRGB8 20 20 128}
-        ]
+    world = World { wo = [Circle {cr = 5, cp = Point { x = -1, y = -1, z = -10 }, cc = PixelRGB8 50 50 128}
+        , Circle {cr = 7, cp = Point { x = 5, y = 5, z = -17 }, cc = PixelRGB8 50 128 50}
+        , Circle {cr = 3, cp = Point { x = -5, y = 3, z = -9 }, cc = PixelRGB8 128 50 50}
+        ], 
+        wl = [Light { lp = Point { x = -7, y = 15, z = 5}, li = 10 }] 
+      }
 
     pointCompute :: Circle -> Point -> Point -> Float -> Float -> Float -> Maybe Float
     pointCompute c o d tca d2 r2 = if t0 < 0 && t1 < 0 then Nothing else Just ret
@@ -49,7 +51,7 @@ module Geometry where
         if d2 > r2 then 
             Nothing else pointCompute c o d tca d2 r2
 
-        where l = (p c) `psub` o
+        where l = (cp c) `psub` o
               tca = l `pdot` d
               d2 = l `pdot` l - tca * tca
-              r2 = (r c) * (r c)
+              r2 = (cr c) * (cr c)
