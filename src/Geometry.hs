@@ -32,9 +32,9 @@ module Geometry where
 
     world :: World
     world = [
-        Circle {r = 5, p = Point { x = -1, y = -1, z = -10 }, c = PixelRGB8 128 20 20},
-        Circle {r = 7, p = Point { x = 5, y = 5, z = -17 }, c = PixelRGB8 20 128 20},
-        Circle {r = 3, p = Point { x = 1, y = 1, z = -9 }, c = PixelRGB8 20 20 128}
+        Circle {r = 5, p = Point { x = -1, y = -1, z = -10 }, c = PixelRGB8 128 20 20}
+        , Circle {r = 7, p = Point { x = 5, y = 5, z = -17 }, c = PixelRGB8 20 128 20}
+        , Circle {r = 3, p = Point { x = -5, y = 3, z = -9 }, c = PixelRGB8 20 20 128}
         ]
 
     pointCompute :: Circle -> Point -> Point -> Float -> Float -> Float -> Maybe Float
