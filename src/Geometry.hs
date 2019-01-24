@@ -36,7 +36,7 @@ module Geometry where
         , Circle {cr = 7, cp = Point { x = 5, y = 5, z = -17 }, cc = PixelRGB8 50 128 50}
         , Circle {cr = 3, cp = Point { x = -5, y = 3, z = -9 }, cc = PixelRGB8 128 50 50}
         ], 
-        wl = [Light { lp = Point { x = -7, y = 15, z = 5}, li = 10 }] 
+        wl = [Light { lp = Point { x = -7, y = 15, z = 5}, li = 1 }] 
       }
 
     pointCompute :: Circle -> Point -> Point -> Float -> Float -> Float -> Maybe Float
